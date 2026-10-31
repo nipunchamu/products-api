@@ -22,8 +22,9 @@ public class ProductController {
         return productService.getProductById(id).orElse(null);
     }
 
+    // Product is abstract now, so Jackson needs a concrete type for the JSON body
     @PostMapping("/products")
-    public Product addProduct(@RequestBody Product product) {
+    public Product addProduct(@RequestBody DigitalProduct product) {
         return productService.addProduct(product);
     }
 
@@ -35,5 +36,10 @@ public class ProductController {
     @GetMapping("/products/search")
     public List<Product> search(@RequestParam String name) {
         return productService.findByName(name);
+    }
+
+    @GetMapping("/products/summaries")
+    public List<String> getSummaries() {
+        return productService.getAllSummaries();
     }
 }
